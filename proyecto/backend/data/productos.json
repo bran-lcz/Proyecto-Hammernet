@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "nombre": "Martillo Profesional",
+        "descripcion": "Martillo profesional de acero forjado con mango ergonómico",
+        "caracteristicas": "Peso: 500g, Material: Acero forjado, Mango: Goma antideslizante",
+        "precio": 24.99,
+        "stock": 50,
+        "categoria": "Herramientas manuales",
+        "imagen": "https://res.cloudinary.com/diblgurfm/image/upload/v1751515142/hammernet/producto_1_Martillo.png",
+        "fecha_creacion": "2023-11-15T10:30:00"
+    },
+    {
+        "id": 2,
+        "nombre": "Taladro Inalámbrico",
+        "descripcion": "Taladro inalámbrico de 20V con batería de larga duración",
+        "caracteristicas": "Potencia: 20V, Batería: Li-Ion 2000mAh, Velocidad: 0-1500 RPM",
+        "precio": 89.99,
+        "stock": 25,
+        "categoria": "Herramientas eléctricas",
+        "imagen": "https://res.cloudinary.com/diblgurfm/image/upload/v1751515142/hammernet/producto_2_broca.webp",
+        "fecha_creacion": "2023-11-15T11:45:00"
+    },
+    {
+        "id": 3,
+        "nombre": "Juego de Destornilladores",
+        "descripcion": "Set de 10 destornilladores de precisión para diversos usos",
+        "caracteristicas": "Cantidad: 10 piezas, Tipos: Phillips y planos, Material: Cromo-vanadio",
+        "precio": 19.99,
+        "stock": 40,
+        "categoria": "Herramientas manuales",
+        "imagen": "https://res.cloudinary.com/diblgurfm/image/upload/v1751515143/hammernet/producto_3_flexo.jpg",
+        "fecha_creacion": "2023-11-16T09:15:00"
+    },
+    {
+        "id": 4,
+        "nombre": "Producto de Prueba Cloudinary",
+        "descripcion": "Este es un producto de prueba para verificar la integración con Cloudinary",
+        "caracteristicas": "Característica 1: Valor 1, Característica 2: Valor 2",
+        "precio": 99.99,
+        "stock": 10,
+        "categoria": "Pruebas",
+        "imagen": "https://res.cloudinary.com/diblgurfm/image/upload/v1751515285/hammernet/producto_test_4_logo.webp",
+        "fecha_creacion": "2025-07-03T00:01:35.987796"
+    }
+]
