@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Importar la configuración de la API
+import { API_URL } from '../../scripts/config.js';
+
+// Obtener todos los productos desde la API para generar rutas dinámicas
+export async function getStaticPaths() {
+  try {
+    // Intentar obtener productos de la API
+    console.log('Fetching products from URL:', `${API_URL}/productos`);
+    const response = await fetch(`${API_URL}/productos`);
+    
+    if (!response.ok) {
+      throw new Error(`Error al obtener productos: ${response.status} ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    console.log('API response:', JSON.stringify(data).substring(0, 200)); // Log primeros 200 caracteres
+    
+    // Verificar si la respuesta es un array o tiene una estructura diferente
+    let productos = [];
+    if (Array.isArray(data)) {
+      productos = data;
+    } else if (data && typeof data === 'object') {
+      // Si estamos en desarrollo local, podemos tener datos de prueba
+      if (isLocalDev && Array.isArray(data.productos)) {
+        productos = data.productos;
+      } else {
+        // En producción, crear algunos productos de ejemplo para pruebas
+        productos = [
+          { nombre: 'Martillo', precio: 5000, descripcion: 'Martillo de acero', categoria: 'Herramientas' },
+          { nombre: 'Destornillador', precio: 3000, descripcion: 'Destornillador Phillips', categoria: 'Herramientas' },
+          { nombre: 'Sierra', precio: 8000, descripcion: 'Sierra para madera', categoria: 'Herramientas' }
+        ];
+      }
+    }
+    
+    console.log(`Generando rutas para ${productos.length} productos`);
+    
+    // Generar rutas para cada producto
+    return productos.map(producto => ({
+      params: { producto: producto.nombre.toLowerCase().replace(/\s+/g, '-') },
+    }));
+  } catch (error) {
+    console.error('Error al generar rutas:', error);
+    // Siempre debemos devolver un array, incluso en caso de error
+    return [];
+  }
+}
+---
+
+<Layout title="Producto - Ferretería Patricio">
+	<script src="../../scripts/producto-detalle.js" type="module"></script>
+	
+	<div class="container mx-auto px-4 py-8">
+		<!-- Breadcrumb -->
+		<nav class="text-sm mb-8">
+			<ol class="list-none p-0 inline-flex">
+				<li class="flex items-center">
+					<a href="/" class="text-gray-500 hover:text-blue-600">Inicio</a>
+					<svg class="w-2 h-2 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+					</svg>
+				</li>
+				<li class="flex items-center">
+					<a href="/productos" class="text-gray-500 hover:text-blue-600">Productos</a>
+					<svg class="w-2 h-2 mx-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+					</svg>
+				</li>
+				<li class="text-gray-800">Cargando producto...</li>
+			</ol>
+		</nav>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			<!-- Estado de carga inicial -->
+			<div class="col-span-full text-center py-8">
+				<div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
+				<p class="text-gray-500 mt-4">Cargando detalles del producto...</p>
+			</div>
+		</div>
+
+		<!-- Productos similares -->
+		<section class="mt-16">
+			<h2 class="text-2xl font-bold mb-8">Productos Similares</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+				<!-- Los productos similares se cargarán dinámicamente -->
+				<div class="col-span-full text-center py-8">
+					<div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
+					<p class="text-gray-500 mt-4">Cargando productos similares...</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</Layout>
